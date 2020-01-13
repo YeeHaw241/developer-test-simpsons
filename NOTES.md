@@ -7,3 +7,12 @@
 - merge issue-0-update-gulp into master
 - npm install.
 - compile assets: `./bin/node_modules/gulp`.
+
+# [issue-1-sort-episode-order]
+
+## Features
+- Updated sort method to arrange episodes in season ascending, episode ascending order.
+## How To Test
+- On loading the page "Behind The Laughter - s11e22" is now the last episode. 
+## Deployment steps
+- merge issue-1-sort-episode-order into master 
