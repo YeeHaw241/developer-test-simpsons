@@ -19,8 +19,8 @@ var resourcePath = './public/resources/'
 
 // Build Sass
 
-gulp.task('sass', ['clean:css'], function () {
-    return gulp.src(sassPath + 'main.scss')
+gulp.task('sass', gulp.series(cleanCss, function () {
+    return gulp.src(sassPath + 'main.scss',{allowEmpty: true})
         .pipe(sourcemaps.init())
         .pipe(sass({
             outputStyle: 'compressed',
@@ -31,12 +31,11 @@ gulp.task('sass', ['clean:css'], function () {
         .pipe(postcss([ autoprefixer({ browsers: ['last 2 versions'] }) ]))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(buildPath + 'css/'))
-})
-
+}));
 
 // Build JS
 
-gulp.task('js', ['clean:js'], function (){
+gulp.task('js', gulp.series(cleanJs, function (){
     return browserify({
             debug: true, // Generates sourcemaps
             entries: [jsPath + 'main.js']
@@ -45,55 +44,55 @@ gulp.task('js', ['clean:js'], function (){
         .bundle()
         .pipe(source('main.js'))
         .pipe(gulp.dest(buildPath + 'js/'));
-})
+}));
 
 
 // Copy images
 
-gulp.task('copy:images', ['clean:images'], function() {
-    return gulp.src(resourcePath + 'images/**')
+gulp.task('copy:images', gulp.series(cleanImages, function() {
+    return gulp.src(resourcePath + 'images/**',{allowEmpty: true})
         .pipe(gulp.dest(buildPath + 'images/'))
-})
+}));
 
 // Copy fonts
 
-gulp.task('copy:fonts', ['clean:fonts'], function() {
-    return gulp.src(resourcePath + 'fonts/**')
+gulp.task('copy:fonts', gulp.series(cleanFonts, function() {
+    return gulp.src(resourcePath + 'fonts/**',{allowEmpty: true})
         .pipe(gulp.dest(buildPath + 'fonts/'))
-})
+}));
 
 // Clean Fonts
-
-gulp.task('clean:fonts', function(){
+function cleanFonts(){
     return gulp.src(buildPath + 'fonts', {
-        read: false
+        read: false,
+		allowEmpty: true,
     }).pipe(clean())
-})
+};
 
 // Clean Images
 
-gulp.task('clean:images', function(){
+function cleanImages(){
     return gulp.src(buildPath + 'images', {
-        read: false
+        read: false,
+		allowEmpty: true,
     }).pipe(clean())
-})
+};
 
 // Clean CSS
-
-gulp.task('clean:css', function(){
+function cleanCss(){
     return gulp.src(buildPath + 'css', {
-        read: false
+        read: false,
+		allowEmpty: true,
     }).pipe(clean())
-})
+};
 
 // Clean JS
-
-gulp.task('clean:js', function(){
+function cleanJs(){
     return gulp.src(buildPath + 'js', {
-        read: false
+        read: false,
+		allowEmpty: true,
     }).pipe(clean())
-})
-
+};
 
 //Watch
 gulp.task('watch', function () {
@@ -103,4 +102,4 @@ gulp.task('watch', function () {
 
 // Default task
 
-gulp.task('default', ['sass', 'js', 'copy:images', 'copy:fonts'])
+gulp.task('default', gulp.series('sass', 'js', 'copy:images', 'copy:fonts'));
