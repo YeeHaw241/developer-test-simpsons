@@ -10,6 +10,7 @@ module.exports = function () {
 
     // initialise all popovers
     $('body').popover({
+		trigger: 'focus',
         selector: '[data-toggle="popover"]',
         container: 'body',
         viewport: { selector: 'body', padding: 20 }

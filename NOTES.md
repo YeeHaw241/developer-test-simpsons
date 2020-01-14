@@ -29,3 +29,11 @@
 - Throw the exception in a test to verify feature
 ## Deployment steps
 - merge issue-2-handle-api-server-errors-when-retrieving-episode-data
+
+# [issue-4-tooltip]
+
+## Features
+- Popover on episode image is now opened on click and closes when another is opened.
+## Deployment steps
+- merge issue-4-tooltip
+- compile assets: `./bin/node_modules/gulp`.
