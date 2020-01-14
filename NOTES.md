@@ -37,3 +37,12 @@
 ## Deployment steps
 - merge issue-4-tooltip
 - compile assets: `./bin/node_modules/gulp`.
+
+# [change-1-caching-api-response]
+
+## Features
+- Added a file caching feature, currently caches for 10 minutes but can be changed by changing the CACHE_TTL value
+## Deployment steps
+- merge change-1-caching-api-response
+- there may be issues with write permissions on the file
+- application attempts to create file in CACHE_FILE_PATH constant (currently "../public/resources/episode-data.json")
